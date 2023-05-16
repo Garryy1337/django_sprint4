@@ -11,8 +11,8 @@ urlpatterns = [
     path('posts/create/', login_required(views.PostCreateView.as_view()),
          name='create_post'),
     path('posts/<int:pk>/edit/', login_required(
-       views.PostUpdateView.as_view()),
-       name='edit_post'),
+        views.PostUpdateView.as_view()),
+        name='edit_post'),
     path('posts/<int:pk>/delete/',
          login_required(views.PostDeleteView.as_view()),
          name='delete_post'),
