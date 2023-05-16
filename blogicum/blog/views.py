@@ -12,7 +12,7 @@ from .forms import CommentForm, PostForm, ProfileForm
 from .models import Category, Comment, Post, User
 
 
-class IndexListView(ListView):
+class IndexListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blog/index.html'
     paginate_by = 10
@@ -41,7 +41,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/create.html'
@@ -64,7 +64,7 @@ class PostUpdateView(UpdateView):
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/create.html'
 
@@ -88,7 +88,7 @@ class PostDeleteView(DeleteView):
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'blog/detail.html'
 
@@ -99,7 +99,7 @@ class PostDetailView(DetailView):
         return context
 
 
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blog/category.html'
     paginate_by = 10
@@ -147,7 +147,7 @@ class ProfileListView(ListView):
         return context
 
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = ProfileForm
     template_name = 'blog/user.html'
@@ -160,7 +160,7 @@ class ProfileUpdateView(UpdateView):
         return reverse('blog:profile', kwargs={'username': username})
 
 
-class CommentAddView(CreateView):
+class CommentAddView(LoginRequiredMixin, CreateView):
     post_obj = None
     model = Comment
     form_class = CommentForm
@@ -199,7 +199,7 @@ class CommentUpdateView(LoginRequiredMixin, UpdateView):
         return reverse("blog:post_detail", kwargs={"pk": pk})
 
 
-class CommentDeleteView(DeleteView):
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
     model = Comment
     pk_url_kwarg = 'id'
     template_name = 'blog/comment.html'
